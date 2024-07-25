@@ -4,7 +4,7 @@ class Aprendiz
 {
     //atributos
     protected $nombre;
-    private $edad;
+    protected $edad;
 
     //metodos
     public function __construct($Nombre, $Edad)
@@ -30,6 +30,10 @@ class Aprendiz
     }
 } //fin de la clase
 
+
+class prueba
+{
+}
 //instanciar la clase - o creando el objeto
 $objAprendiz = new Aprendiz("Juan", 15);
 
