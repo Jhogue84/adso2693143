@@ -9,6 +9,7 @@
 
 <body>
     <form action="validar.php" method="post">
+
         <div>
             <label for="usuario">Usuario</label><br>
             <input type="text" name="usuario" id="usuario" required><br>
