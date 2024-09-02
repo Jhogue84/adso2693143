@@ -7,6 +7,7 @@ class Producto {
     private $nombre;
     private $valor_unitario;
     private $cantidad;
+    private $imagen;
     private $conexion;
 
     public function __construct() {
@@ -96,8 +97,10 @@ class Producto {
 
     public function crear()
     {
-        $cadenasql = "INSERT INTO productos (nombre,valor_unitario,cantidad) VALUES ('{$this->getNombre()}',{$this->getValor_unitario()},{$this->getCantidad()})";//Valores vienen del objeto producto 
-        $this->conexion->consultaPreparada($cadenasql);
+        $cadenasql = "INSERT INTO productos (nombre,valor_unitario,cantidad, imagen) VALUES (?,?,?,?)";//Valores vienen del objeto producto 
+
+        $valores =[$this->getNombre(),$this->getValor_unitario(),$this->getCantidad(), $this->getImagen()];
+        $this->conexion->consultaPreparada($cadenasql, $valores, "siis");
 
     }
 
@@ -117,8 +120,8 @@ class Producto {
         
         $cadenasql="UPDATE productos SET nombre =? , valor_unitario=?, cantidad =? WHERE id =?";
         //valores del json, que envia el cliente(controlador).
-        $valores=["{$this->getNombre()}",$this->getValor_unitario(), $this->getCantidad(),$this->getId()];
-        $tipoValores ="sdi";
+        $valores=[$this->getNombre(),$this->getValor_unitario(), $this->getCantidad(),"{$this->getImagen()}",$this->getId(),];
+        $tipoValores ="sdisi";
         $editarproductos = $this->conexion->consultaPreparada($cadenasql, $valores, $tipoValores); 
         return $editarproductos;
 
@@ -127,5 +130,25 @@ class Producto {
      public function eliminar(){
         $cadenasql= "DELETE FROM productos WHERE id = ?";
         return $this->conexion->consultaPreparada($cadenasql,[$this->getId()]);
+    }
+
+    /**
+     * Get the value of imagen
+     */ 
+    public function getImagen()
+    {
+        return $this->imagen;
+    }
+
+    /**
+     * Set the value of imagen
+     *
+     * @return  self
+     */ 
+    public function setImagen($imagen)
+    {
+        $this->imagen = $imagen;
+
+        return $this;
     }
 }
